@@ -34,12 +34,12 @@ export const register = async (req, res) => {
     });
 
     res.status(201).json({
-      message: "The user has been created",
+      message: "The user has been created.",
     });
   } catch (error) {
     console.log(error);
     res.status(500).json({
-      message: "Failed to create user",
+      message: "Failed to create user!",
     });
   }
 };
@@ -54,6 +54,7 @@ export const login = async (req, res) => {
         username,
       },
     });
+    console.log(username);
     console.log(userTrue);
     if (!userTrue) {
       return res.status(401).json({
@@ -84,15 +85,15 @@ export const login = async (req, res) => {
       }
     );
 
+    const { password: userPassword, ...userInfo } = userTrue;
+    console.log(userPassword);
     res
       .cookie("token", token, {
         httpOnly: true,
         maxAge: age,
       })
       .status(200)
-      .json({
-        message: "Login Successful",
-      });
+      .json(userInfo);
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Failed to Login" });

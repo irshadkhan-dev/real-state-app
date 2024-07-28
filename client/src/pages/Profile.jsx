@@ -6,16 +6,36 @@ import MsgCard from "../components/MsgCard";
 import { CloseMark } from "../../assests";
 import ChatMsgComponent from "../components/ChatMsgComponent";
 import MychatMsg from "../components/MychatMsg";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
   const [active, setActive] = useState(false);
+  const navigate = useNavigate();
+  const profleInfo = localStorage.getItem("userInfo");
+  const userInfo = JSON.parse(profleInfo);
+  console.log(userInfo);
+
+  const handleLogout = async () => {
+    const res = await axios.post(
+      `http://localhost:3002/api/auth/logout`,
+      {},
+      {
+        withCredentials: true,
+      }
+    );
+    console.log(res.data);
+    localStorage.removeItem("userInfo");
+    navigate("/");
+  };
+
   return (
     <div className="max-w-[1366px] mx-auto items-center max-h-screen overflow-hidden max-sm:px-5 max-md:px-10 max-lg:px-24 px-5">
       <nav className="pt-5 pb-5">
         <NavBar
-          name={userData.name}
-          image={userData.img}
-          boolean={true}
+          name={userInfo.username}
+          image={userInfo.avatar}
+          boolean={userInfo ? true : false}
         ></NavBar>
       </nav>
       <section className="flex h-full w-full">
@@ -44,6 +64,13 @@ function Profile() {
                 Email:{" "}
                 <span className="text-lg">{"ahile input leko chaina"}</span>
               </span>
+
+              <button
+                onClick={handleLogout}
+                className="bg-teal-600 w-[100px] rounded py-2 text-white cursor-pointer"
+              >
+                Log Out
+              </button>
             </div>
           </div>
 
