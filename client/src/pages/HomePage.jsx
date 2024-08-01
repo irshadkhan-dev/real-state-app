@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import { HomeImage } from "../../assests";
 import SearchComponent from "../components/SearchComponent";
+import { AuthContext } from "../../context/AuthContext";
 
 function HomePage() {
   return (

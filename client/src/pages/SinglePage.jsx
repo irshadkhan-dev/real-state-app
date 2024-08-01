@@ -29,11 +29,7 @@ function SinglePage() {
         } `}
       >
         <nav className="w-full pt-5">
-          <NavBar
-            name={userData.name}
-            image={userData.img}
-            boolean={true}
-          ></NavBar>
+          <NavBar></NavBar>
         </nav>
 
         <div className="flex w-full">

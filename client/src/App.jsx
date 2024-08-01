@@ -30,7 +30,7 @@ function Home() {
     <>
       <section className="w-full max-w-[1366px] mx-auto flex flex-col  items-center max-h-screen max-sm:px-5 gap-6 max-lg:px-16 lg:px-16">
         <nav className="w-full pt-5 ">
-          <NavBar boolean={false}></NavBar>
+          <NavBar></NavBar>
         </nav>
 
         <HomePage></HomePage>

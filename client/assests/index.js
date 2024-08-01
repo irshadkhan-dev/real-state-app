@@ -19,6 +19,7 @@ import School from "./school.png";
 import Restraunt from "./restaurant.png";
 import Bus from "./bus.png";
 import CloseMark from "./closee.png";
+import Profilepic from "./profile.png";
 export {
   Logo,
   Profile,
@@ -41,4 +42,5 @@ export {
   Restraunt,
   Bus,
   CloseMark,
+  Profilepic,
 };

@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { NavBar } from "../components/NavBar";
 import { HomeImage } from "../../assests";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { AuthContext } from "../../context/AuthContext";
 
 function Login() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
   const [isLoading, setLoading] = useState(false);
+
+  const { updateUser } = useContext(AuthContext);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -28,7 +31,7 @@ function Login() {
         }
       );
       console.log(res.data);
-      localStorage.setItem("userInfo", JSON.stringify(res.data));
+      updateUser(res.data);
       navigate("/");
     } catch (err) {
       setError(err.response.data.message);

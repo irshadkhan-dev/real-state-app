@@ -1,11 +1,16 @@
-import { useState } from "react";
-import { HamBurger, Logo, Profile } from "../../assests";
+import { useContext, useState } from "react";
+import { HamBurger, Logo, Profile, Profilepic } from "../../assests";
 import SideMenu from "./SideMenu";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
-export const NavBar = ({ name, image, boolean }) => {
+export const NavBar = () => {
   const [isActive, setActive] = useState(false);
-  const user = boolean;
+  const { currentUser } = useContext(AuthContext);
+  console.log(currentUser);
+
+  const navigate = useNavigate();
+
   return (
     <nav className="flex items-center justify-between w-full relative max-w-[1366px] z-10">
       <div className="flex items-center gap-20 max-lg:gap-10">
@@ -35,15 +40,22 @@ export const NavBar = ({ name, image, boolean }) => {
       </div>
 
       <div className="flex gap-4 items-center ">
-        {user ? (
+        {currentUser ? (
           <div className="flex items-center gap-4">
             <img
-              src={image}
+              src={currentUser.avatar || `${Profilepic}`}
               alt=""
               className="rounded-full w-[40px] h-[40px] object-cover"
             />
-            <h1 className="font-medium block max-md:hidden">{name}</h1>
-            <button className="bg-[#fece51] px-5 p-1 text-lg font-medium block max-md:hidden">
+            <h1 className="font-medium block max-md:hidden">
+              {currentUser.username}
+            </h1>
+            <button
+              onClick={() => {
+                navigate("/profile");
+              }}
+              className="bg-[#fece51] px-5 p-1 text-lg font-medium block max-md:hidden"
+            >
               Profile
             </button>
           </div>

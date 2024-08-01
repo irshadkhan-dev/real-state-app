@@ -78,6 +78,7 @@ export const login = async (req, res) => {
     const token = webToken.sign(
       {
         id: userTrue.id,
+        isAdmin: true,
       },
       JWT_SECRET,
       {
@@ -86,7 +87,7 @@ export const login = async (req, res) => {
     );
 
     const { password: userPassword, ...userInfo } = userTrue;
-    console.log(userPassword);
+
     res
       .cookie("token", token, {
         httpOnly: true,
