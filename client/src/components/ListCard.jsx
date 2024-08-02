@@ -6,7 +6,7 @@ function ListCard() {
   return (
     <div className="flex flex-col gap-10 pt-12  w-full">
       {listData.map((cur) => (
-        <div className="flex gap-6">
+        <div key={cur.id} className="flex gap-6">
           <img
             src={cur.img}
             className="rounded-[10px] block max-lg:hidden"

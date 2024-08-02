@@ -6,6 +6,7 @@ import SinglePage from "./pages/SinglePage";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import ProfileUpdater from "./pages/ProfileUpdater";
 
 function App() {
   return (
@@ -20,6 +21,10 @@ function App() {
         <Route element={<Profile></Profile>} path="/profile"></Route>
         <Route element={<Login></Login>} path="/login"></Route>
         <Route element={<Register></Register>} path="/register"></Route>
+        <Route
+          element={<ProfileUpdater></ProfileUpdater>}
+          path="/profile/update"
+        ></Route>
       </Routes>
     </div>
   );

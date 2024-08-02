@@ -46,7 +46,16 @@ function Profile() {
             <div className="flex flex-col gap-10">
               <div className="flex justify-between items-center">
                 <span className="text-[34px] font-thin">User Information</span>
-                <ButtoN title={"Update Profile"}></ButtoN>
+                <button
+                  onClick={() => {
+                    if (currentUser) {
+                      navigate("/profile/update");
+                    }
+                  }}
+                  className="bg-[#fece51] font-medim p-2 px-5"
+                >
+                  Update Profile
+                </button>
               </div>
 
               <div className="flex flex-col gap-4">
@@ -80,7 +89,9 @@ function Profile() {
             <div>
               <div className="flex justify-between items-center">
                 <span className="text-[34px] font-thin">My List</span>
-                <ButtoN title={"Create New Post"}></ButtoN>
+                <button className="bg-[#fece51] font-medim p-2 px-5">
+                  Create New Post
+                </button>
               </div>
               <ListCard></ListCard>
             </div>
@@ -157,10 +168,6 @@ function Profile() {
       </div>
     )
   );
-}
-
-function ButtoN({ title }) {
-  return <button className="bg-[#fece51] font-medim p-2 px-5">{title}</button>;
 }
 
 export default Profile;
