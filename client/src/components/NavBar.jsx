@@ -7,7 +7,6 @@ import { AuthContext } from "../../context/AuthContext";
 export const NavBar = () => {
   const [isActive, setActive] = useState(false);
   const { currentUser } = useContext(AuthContext);
-  console.log(currentUser);
 
   const navigate = useNavigate();
 

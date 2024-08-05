@@ -7,6 +7,7 @@ import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ProfileUpdater from "./pages/ProfileUpdater";
+import NewPostPage from "./pages/NewPostPage";
 
 function App() {
   return (
@@ -24,6 +25,10 @@ function App() {
         <Route
           element={<ProfileUpdater></ProfileUpdater>}
           path="/profile/update"
+        ></Route>
+        <Route
+          element={<NewPostPage></NewPostPage>}
+          path="/profile/newpost"
         ></Route>
       </Routes>
     </div>
