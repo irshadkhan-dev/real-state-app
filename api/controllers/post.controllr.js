@@ -19,6 +19,15 @@ export const getPost = async (req, res) => {
   try {
     const post = await prisma.post.findUnique({
       where: { id },
+      include: {
+        PostDetail: true,
+        user: {
+          select: {
+            username: true,
+            avatar: true,
+          },
+        },
+      },
     });
 
     if (!post) return res.status(401).json({ msg: "Error fetching post" });
@@ -36,8 +45,11 @@ export const addPost = async (req, res) => {
   try {
     const createPost = await prisma.post.create({
       data: {
-        ...body,
+        ...body.postData,
         userId: userId,
+        PostDetail: {
+          create: body.postDetail,
+        },
       },
     });
 

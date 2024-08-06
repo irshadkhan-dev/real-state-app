@@ -24,7 +24,7 @@ model User {
 }
 
 model Post {
-  id         String       @id @default(auto()) @map("_id") @db.ObjectId
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
   title      String
   price      Int
   img        String[]
@@ -36,10 +36,10 @@ model Post {
   longitude  String
   type       Type
   property   Property
-  userId     String       @db.ObjectId
-  user       User         @relation(fields: [userId], references: [id])
-  createdAt  DateTime     @default(now())
-  PostDetail PostDetail[]
+  userId     String      @db.ObjectId
+  user       User        @relation(fields: [userId], references: [id])
+  createdAt  DateTime    @default(now())
+  PostDetail PostDetail?
 }
 
 enum Type {
