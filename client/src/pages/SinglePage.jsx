@@ -17,12 +17,15 @@ import {
 } from "../../assests";
 import { SVG } from "leaflet";
 import MapLayout from "../components/MapLayout";
+import { useLoaderData } from "react-router-dom";
 
 function SinglePage() {
   const [active, setActive] = useRecoilState(CarouselStateRecoil);
+  const postData = useLoaderData();
+  console.log(postData);
   return (
     <>
-      <Carousel images={singlePostData.images}></Carousel>
+      <Carousel images={postData.img}></Carousel>
       <section
         className={`w-full overflow-hidden max-w-[1366px] mx-auto flex flex-col items-center max-sm:px-5 max-lg:px-16 px-10 gap-6 h-screen ${
           active ? "hidden" : "block"
@@ -34,31 +37,29 @@ function SinglePage() {
 
         <div className="flex w-full">
           <section className="w-full">
-            <Slider images={singlePostData.images}></Slider>
+            <Slider images={postData.img}></Slider>
             <div className="flex justify-between w-full max-md:block pt-10 gap-10 ">
               <div className="flex flex-col gap-4 max-md:pb-5">
-                <h1 className="text-4xl font-semibold">
-                  {singlePostData.title}
-                </h1>
-                <p className="text-[#888897] text-sm">
-                  {singlePostData.address}
-                </p>
+                <h1 className="text-4xl font-semibold">{postData.title}</h1>
+                <p className="text-[#888897] text-sm">{postData.address}</p>
                 <p className="bg-[#ffe9b3] w-[90px] text-2xl font-light px-3 rounded-[6px]">
-                  ${singlePostData.price}
+                  ${postData.price}
                 </p>
               </div>
               <div className="bg-[#fff5db] flex flex-col justify-center items-center p-6 px-11 gap-3 rounded-[10px]">
                 <img
-                  src={userData.img}
+                  src={postData.user.avatar}
                   alt=""
                   className="w-10 h-10 rounded-[50%]"
                 />
-                <p className="text-lg font-semibold">{userData.name}</p>
+                <p className="text-lg font-semibold">
+                  {postData.user.username}
+                </p>
               </div>
             </div>
             <div className="pt-5">
               <p className="text-[#888897] leading-5">
-                {singlePostData.description}
+                {postData.PostDetail.desc}
               </p>
             </div>
           </section>
@@ -70,17 +71,25 @@ function SinglePage() {
                 <GeneralComp
                   image={Utility}
                   title={"Utilities"}
-                  desc={"Renter is responsible"}
+                  desc={
+                    postData.PostDetail.utilities === "owner"
+                      ? "Owner is responsible"
+                      : "Tenant is responsible"
+                  }
                 ></GeneralComp>
                 <GeneralComp
                   image={Pet}
                   title={"Pet Policy"}
-                  desc={"Pets Allowed"}
+                  desc={
+                    postData.PostDetail.pet === "allowed"
+                      ? "Pets Allowed"
+                      : "Pets not allowed"
+                  }
                 ></GeneralComp>
                 <GeneralComp
                   image={Fee}
                   title={"Property Fees"}
-                  desc={"Must have 3x the rent in total household income"}
+                  desc={postData.PostDetail.income}
                 ></GeneralComp>
               </div>
             </div>
@@ -88,13 +97,16 @@ function SinglePage() {
             <div className="w-full p-4">
               <h1 className="text-xl font-semibold mb-7">Sizes</h1>
               <div className="flex justify-around">
-                <SizeComp desc={"80 sqft"} image={Size}></SizeComp>
                 <SizeComp
-                  desc={`${singlePostData.bedRooms} bedroms`}
+                  desc={postData.PostDetail.size}
+                  image={Size}
+                ></SizeComp>
+                <SizeComp
+                  desc={`${postData.bedroom} bedroms`}
                   image={Bed}
                 ></SizeComp>
                 <SizeComp
-                  desc={`${singlePostData.bathroom} bathroom`}
+                  desc={`${postData.bathroom} bathroom`}
                   image={Bathroom}
                 ></SizeComp>
               </div>
@@ -105,24 +117,28 @@ function SinglePage() {
               <div className="flex bg-white h-16  justify-between p-2 items-center rounded-[8px]">
                 <GeneralComp
                   title={"School"}
-                  desc={singlePostData.school}
+                  desc={postData.PostDetail.school}
                   image={School}
                 ></GeneralComp>
                 <GeneralComp
                   title={"Bus Stop"}
-                  desc={singlePostData.bus}
+                  desc={postData.PostDetail.bus}
                   image={Bus}
                 ></GeneralComp>
                 <GeneralComp
                   title={"Restaurant"}
-                  desc={singlePostData.restaurant}
+                  desc={postData.PostDetail.restaurant}
                   image={Restraunt}
                 ></GeneralComp>
               </div>
             </div>
             <div className="w-full p-4 ">
               <h1 className="text-xl font-semibold mb-7">Location</h1>
-              <MapLayout height={"200px"}></MapLayout>
+              <MapLayout
+                height={"200px"}
+                longitude={postData.longitude}
+                latitude={postData.latitude}
+              ></MapLayout>
             </div>
           </section>
         </div>

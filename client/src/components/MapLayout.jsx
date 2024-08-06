@@ -17,7 +17,7 @@ L.Icon.Default.mergeOptions({
     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
 });
 
-function MapLayout({ height }) {
+function MapLayout({ height, longitude, latitude }) {
   return (
     <div className="rounded border-4">
       <MapContainer
@@ -30,7 +30,7 @@ function MapLayout({ height }) {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         ></TileLayer>
         {listData.map((item, index) => (
-          <Pin item={item}></Pin>
+          <Pin item={item} key={index}></Pin>
         ))}
       </MapContainer>
     </div>

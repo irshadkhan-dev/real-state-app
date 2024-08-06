@@ -7,7 +7,7 @@ import { CloseMark, Profilepic } from "../../assests";
 import ChatMsgComponent from "../components/ChatMsgComponent";
 import MychatMsg from "../components/MychatMsg";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
 function Profile() {
@@ -89,9 +89,11 @@ function Profile() {
             <div>
               <div className="flex justify-between items-center">
                 <span className="text-[34px] font-thin">My List</span>
-                <button className="bg-[#fece51] font-medim p-2 px-5">
-                  Create New Post
-                </button>
+                <Link to={"/profile/newpost"}>
+                  <button className="bg-[#fece51] font-medim p-2 px-5">
+                    Create New Post
+                  </button>
+                </Link>
               </div>
               <ListCard></ListCard>
             </div>

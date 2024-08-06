@@ -1,13 +1,19 @@
 import HomePage from "./pages/HomePage";
 import { NavBar } from "./components/NavBar";
 import ListPage from "./pages/ListPage";
-import { Route, Routes } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements,
+  Route,
+  Routes,
+} from "react-router-dom";
 import SinglePage from "./pages/SinglePage";
 import Profile from "./pages/Profile";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ProfileUpdater from "./pages/ProfileUpdater";
 import NewPostPage from "./pages/NewPostPage";
+import { singlePageLoader } from "../loaders/SinglePostLoader";
 
 function App() {
   return (
@@ -18,7 +24,11 @@ function App() {
           element={<ListPage location={"Kathmandu"}></ListPage>}
           path="/list"
         ></Route>
-        <Route element={<SinglePage></SinglePage>} path="/:id"></Route>
+        <Route
+          element={<SinglePage></SinglePage>}
+          path="/:id"
+          loader={singlePageLoader}
+        ></Route>
         <Route element={<Profile></Profile>} path="/profile"></Route>
         <Route element={<Login></Login>} path="/login"></Route>
         <Route element={<Register></Register>} path="/register"></Route>
@@ -35,6 +45,34 @@ function App() {
   );
 }
 
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <>
+      <Route element={<Home></Home>} path="/"></Route>
+      <Route
+        element={<ListPage location={"Kathmandu"}></ListPage>}
+        path="/list"
+      ></Route>
+      <Route
+        element={<SinglePage></SinglePage>}
+        path="/:id"
+        loader={singlePageLoader}
+      ></Route>
+      <Route element={<Profile></Profile>} path="/profile"></Route>
+      <Route element={<Login></Login>} path="/login"></Route>
+      <Route element={<Register></Register>} path="/register"></Route>
+      <Route
+        element={<ProfileUpdater></ProfileUpdater>}
+        path="/profile/update"
+      ></Route>
+      <Route
+        element={<NewPostPage></NewPostPage>}
+        path="/profile/newpost"
+      ></Route>
+    </>
+  )
+);
+
 function Home() {
   return (
     <>
@@ -49,4 +87,4 @@ function Home() {
   );
 }
 
-export default App;
+export default router;

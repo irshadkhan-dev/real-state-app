@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   CarouselImageRecoil,
   CarouselStateRecoil,
@@ -8,7 +8,7 @@ import { Arrow, Close, RightArrow } from "../../assests";
 
 function Slider({ images }) {
   const [active, setActive] = useRecoilState(CarouselStateRecoil);
-  console.log(active);
+
   return (
     <>
       <div className="flex gap-5 w-full">
