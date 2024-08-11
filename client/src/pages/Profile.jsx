@@ -7,7 +7,7 @@ import { CloseMark, Profilepic } from "../../assests";
 import ChatMsgComponent from "../components/ChatMsgComponent";
 import MychatMsg from "../components/MychatMsg";
 import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
+import { Await, Link, useLoaderData, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
 function Profile() {
@@ -35,6 +35,8 @@ function Profile() {
     navigate("/");
   };
 
+  const postData = useLoaderData();
+  console.log(postData);
   return (
     currentUser && (
       <div className="max-w-[1366px] mx-auto items-center max-h-screen overflow-hidden max-sm:px-5 max-md:px-10 max-lg:px-24 px-5">
@@ -42,7 +44,7 @@ function Profile() {
           <NavBar></NavBar>
         </nav>
         <section className="flex h-full w-full">
-          <section className="flex flex-col gap-12  pr-12 max-md:pr-0 overflow-visible overflow-y-scroll  h-[90vh] flex-[2/3]">
+          <section className="flex flex-col gap-12  pr-12 max-md:pr-0 overflow-visible overflow-y-scroll  h-[90vh] w-[100%]">
             <div className="flex flex-col gap-10">
               <div className="flex justify-between items-center">
                 <span className="text-[34px] font-thin">User Information</span>
@@ -95,16 +97,34 @@ function Profile() {
                   </button>
                 </Link>
               </div>
-              <ListCard></ListCard>
+              <React.Suspense fallback={<span>Loading post data...</span>}>
+                <Await
+                  resolve={postData.postResponse}
+                  errorElement={<span>Error Loading Profile Data...</span>}
+                >
+                  {(postResponse) => (
+                    <ListCard item={postResponse.data.createdPost}></ListCard>
+                  )}
+                </Await>
+              </React.Suspense>
             </div>
 
             <div className="pb-10">
-              <span className="text-[34px] font-thin">My List</span>
-              <ListCard></ListCard>
+              <span className="text-[34px] font-thin">Saved Post</span>
+              <React.Suspense fallback={<span>Loading post data...</span>}>
+                <Await
+                  resolve={postData.postResponse}
+                  errorElement={<span>Error Loading Profile Data...</span>}
+                >
+                  {(postResponse) => (
+                    <ListCard item={postResponse.data.savedPost}></ListCard>
+                  )}
+                </Await>
+              </React.Suspense>
             </div>
           </section>
 
-          <section className="bg-[#fcf5f3] h-[100vh] block max-lg:hidden -top-20 relative w-[55%]">
+          <section className="bg-[#030303] h-[100vh] block max-lg:hidden -top-20 relative w-[50%] ml-6">
             <div className=" h-[100%] bg-[#fcf5f3] top-0 flex flex-col pt-16 gap-5">
               <div className="basis-1/3 grow overflow-y-scroll h-[90vh] p-5">
                 <span className="text-3xl font-thin">Messages</span>

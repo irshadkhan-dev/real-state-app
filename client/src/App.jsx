@@ -14,6 +14,8 @@ import Register from "./pages/Register";
 import ProfileUpdater from "./pages/ProfileUpdater";
 import NewPostPage from "./pages/NewPostPage";
 import { singlePageLoader } from "../loaders/SinglePostLoader";
+import { listPageLoader } from "../loaders/ListPageLoader";
+import { profilePageLoader } from "../loaders/ProfilePageLoader";
 
 function App() {
   return (
@@ -52,13 +54,18 @@ const router = createBrowserRouter(
       <Route
         element={<ListPage location={"Kathmandu"}></ListPage>}
         path="/list"
+        loader={listPageLoader}
       ></Route>
       <Route
         element={<SinglePage></SinglePage>}
         path="/:id"
         loader={singlePageLoader}
       ></Route>
-      <Route element={<Profile></Profile>} path="/profile"></Route>
+      <Route
+        element={<Profile></Profile>}
+        path="/profile"
+        loader={profilePageLoader}
+      ></Route>
       <Route element={<Login></Login>} path="/login"></Route>
       <Route element={<Register></Register>} path="/register"></Route>
       <Route

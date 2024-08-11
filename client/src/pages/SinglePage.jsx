@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { NavBar } from "../components/NavBar";
 import { singlePostData, userData } from "../dummydata";
 import Slider, { Carousel } from "../components/Slider";
@@ -10,18 +10,52 @@ import {
   Bus,
   Fee,
   Pet,
+  Profilepic,
   Restraunt,
+  Save,
   School,
   Size,
   Utility,
 } from "../../assests";
 import { SVG } from "leaflet";
 import MapLayout from "../components/MapLayout";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { AuthContext } from "../../context/AuthContext";
 
 function SinglePage() {
   const [active, setActive] = useRecoilState(CarouselStateRecoil);
   const postData = useLoaderData();
+  const [saved, setSaved] = useState(postData.isSaved);
+  console.log(saved);
+  const { currentUser } = useContext(AuthContext);
+
+  const navigate = useNavigate();
+
+  const handleClick = async () => {
+    if (!currentUser) {
+      navigate("/login");
+    }
+    setSaved((prev) => !prev);
+
+    try {
+      const res = await axios.post(
+        `http://localhost:3002/api/user/save/`,
+        {
+          postId: postData.PostDetail.postId,
+        },
+        {
+          withCredentials: true,
+        }
+      );
+      console.log(res.data);
+    } catch (err) {
+      console.log(err);
+      setSaved((prev) => !prev);
+    }
+  };
+
+  console.log(saved);
   console.log(postData);
   return (
     <>
@@ -48,7 +82,7 @@ function SinglePage() {
               </div>
               <div className="bg-[#fff5db] flex flex-col justify-center items-center p-6 px-11 gap-3 rounded-[10px]">
                 <img
-                  src={postData.user.avatar}
+                  src={postData.user.avatar || Profilepic}
                   alt=""
                   className="w-10 h-10 rounded-[50%]"
                 />
@@ -65,8 +99,8 @@ function SinglePage() {
           </section>
 
           <section className="w-[57%] bg-[#fcf5f3] max-lg:hidden h-[90vh] ml-5 rounded overflow-y-scroll">
-            <div className="w-full p-4 ">
-              <h1 className="text-xl font-semibold mb-7">General</h1>
+            <div className="w-full p-2">
+              <h1 className="text-xl font-semibold mb-3">General</h1>
               <div className="bg-white flex flex-col gap-6 p-4 rounded-[8px]">
                 <GeneralComp
                   image={Utility}
@@ -95,7 +129,7 @@ function SinglePage() {
             </div>
 
             <div className="w-full p-4">
-              <h1 className="text-xl font-semibold mb-7">Sizes</h1>
+              <h1 className="text-xl font-semibold mb-3">Sizes</h1>
               <div className="flex justify-around">
                 <SizeComp
                   desc={postData.PostDetail.size}
@@ -113,7 +147,7 @@ function SinglePage() {
             </div>
 
             <div className="w-full p-4 ">
-              <h1 className="text-xl font-semibold mb-7">Nearby Places</h1>
+              <h1 className="text-xl font-semibold mb-3">Nearby Places</h1>
               <div className="flex bg-white h-16  justify-between p-2 items-center rounded-[8px]">
                 <GeneralComp
                   title={"School"}
@@ -133,12 +167,22 @@ function SinglePage() {
               </div>
             </div>
             <div className="w-full p-4 ">
-              <h1 className="text-xl font-semibold mb-7">Location</h1>
-              <MapLayout
-                height={"200px"}
-                longitude={postData.longitude}
-                latitude={postData.latitude}
-              ></MapLayout>
+              <h1 className="text-xl font-semibold mb-3">Location</h1>
+              <MapLayout height={"200px"} items={[postData]}></MapLayout>
+            </div>
+
+            <div className="flex justify-center pb-3">
+              <button
+                className={`flex ${
+                  saved ? "bg-[#fdcf4f]" : "bg-white"
+                } items-center px-2 py-3 shadow-lg  gap-1 justify-center border-[1px] border-[#fdcf4f]`}
+                onClick={handleClick}
+              >
+                <img src={Save} alt="" width={15} />
+                <span className="text-sm font-semibold">
+                  {saved ? " Post Saved" : "Save the Post"}
+                </span>
+              </button>
             </div>
           </section>
         </div>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import MyEditor from "../components/MyEditor";
+
 import axios from "axios";
 
 import ReactQuill from "react-quill";
