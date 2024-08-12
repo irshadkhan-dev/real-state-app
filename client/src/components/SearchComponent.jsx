@@ -17,7 +17,6 @@ function SearchComponent() {
   };
 
   const switchType = (val) => {
-    console.log(val);
     setQuery((prev) => ({ ...prev, type: val }));
   };
 

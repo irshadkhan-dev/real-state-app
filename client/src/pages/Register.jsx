@@ -16,15 +16,13 @@ function Register() {
     const email = formData.get("email");
     const password = formData.get("password");
 
-    // console.log(username, email, password);
-
     try {
       const res = await axios.post(`http://localhost:3002/api/auth/register/`, {
         username,
         email,
         password,
       });
-      console.log(res.data);
+
       navigate("/login");
     } catch (err) {
       setError(err.response.data.message);

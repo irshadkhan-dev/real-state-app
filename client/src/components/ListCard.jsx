@@ -4,7 +4,6 @@ import { Bathroom, Bed, Chat, Pin, Save } from "../../assests";
 import { Link, useLoaderData, useNavigate } from "react-router-dom";
 
 function ListCard({ item }) {
-  console.log(item);
   return (
     <div className="flex flex-col gap-10 pt-12  w-full">
       {item.map((cur) => (

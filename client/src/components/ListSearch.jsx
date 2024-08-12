@@ -17,7 +17,6 @@ function ListSearch({ location }) {
     property: searchParams.get("property") || "",
     bedroom: searchParams.get("bedroom") || 1,
   });
-  console.log(query);
 
   const onHandleChange = (e) => {
     setQuery({

@@ -27,7 +27,7 @@ function SinglePage() {
   const [active, setActive] = useRecoilState(CarouselStateRecoil);
   const postData = useLoaderData();
   const [saved, setSaved] = useState(postData.isSaved);
-  console.log(saved);
+
   const { currentUser } = useContext(AuthContext);
 
   const navigate = useNavigate();
@@ -48,15 +48,12 @@ function SinglePage() {
           withCredentials: true,
         }
       );
-      console.log(res.data);
     } catch (err) {
       console.log(err);
       setSaved((prev) => !prev);
     }
   };
 
-  console.log(saved);
-  console.log(postData);
   return (
     <>
       <Carousel images={postData.img}></Carousel>

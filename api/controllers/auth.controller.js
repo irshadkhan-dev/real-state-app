@@ -54,8 +54,7 @@ export const login = async (req, res) => {
         username,
       },
     });
-    console.log(username);
-    console.log(userTrue);
+
     if (!userTrue) {
       return res.status(401).json({
         message: "User does not exists",

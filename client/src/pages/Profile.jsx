@@ -36,7 +36,7 @@ function Profile() {
   };
 
   const postData = useLoaderData();
-  console.log(postData);
+
   return (
     currentUser && (
       <div className="max-w-[1366px] mx-auto items-center max-h-screen overflow-hidden max-sm:px-5 max-md:px-10 max-lg:px-24 px-5">

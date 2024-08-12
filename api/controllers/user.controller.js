@@ -76,7 +76,6 @@ export const deleteUser = async (req, res) => {
       },
     });
 
-    console.log(deleteUser);
     if (!deleteUser)
       return res.status(401).json({ msg: "Failed to delete the User" });
 

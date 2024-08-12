@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 export const getPosts = async (req, res) => {
   const query = req.query;
-  console.log(query);
+
   try {
     const allPost = await prisma.post.findMany({
       where: {
@@ -96,7 +96,7 @@ export const updatePost = async (req, res) => {
   const id = req.params.id;
   const userId = req.userId;
   const body = req.body;
-  console.log(id);
+
   try {
     const updatePost = await prisma.post.update({
       where: {

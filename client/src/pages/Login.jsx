@@ -30,7 +30,7 @@ function Login() {
           withCredentials: true,
         }
       );
-      console.log(res.data);
+
       updateUser(res.data);
       navigate("/");
     } catch (err) {

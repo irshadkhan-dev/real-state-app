@@ -32,7 +32,7 @@ function ProfileUpdater() {
           withCredentials: true,
         }
       );
-      console.log(userTrue.data);
+
       await updateUser(userTrue.data);
       navigate("/profile");
     } catch (err) {
